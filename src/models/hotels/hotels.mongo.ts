@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 
 import IHotel from './hotels.interface';
 
+// Workaround: disable mongoose SchemaType casting
+mongoose.Schema.Types.String.cast(false);
+mongoose.Schema.Types.Number.cast(false);
+mongoose.Schema.Types.Boolean.cast(false);
+
 const HotelSchema = new mongoose.Schema<IHotel>({
   name: {
     type: String,
