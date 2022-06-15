@@ -1,4 +1,5 @@
-import Hotel, { IHotel } from './hotels.mongo';
+import IHotel from './hotels.interface';
+import Hotel from './hotels.mongo';
 
 export async function getAllHotels(): Promise<IHotel[]> {
   return Hotel.find();
