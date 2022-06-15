@@ -6,6 +6,7 @@ import {
   getHotelById,
   createNewHotel,
   updateHotel,
+  deleteHotel,
 } from '../../../models/hotels/hotels.model';
 
 export async function httpGetAllHotels(req: Request, res: Response) {
@@ -49,6 +50,19 @@ export async function httpUpdateHotel(req: Request, res: Response) {
       return res.status(404).json({ message: 'Hotel ID not found' });
     }
     return res.status(200).json(updatedHotel);
+  } catch (err) {
+    return res.status(500).json({ err });
+  }
+}
+
+export async function httpDeleteHotel(req: Request, res: Response) {
+  const hotelID = req.params.id;
+  try {
+    const hotel = await deleteHotel(hotelID);
+    if (!hotel) {
+      return res.status(404).json({ message: 'Hotel ID not found' });
+    }
+    return res.status(204).json();
   } catch (err) {
     return res.status(500).json({ err });
   }

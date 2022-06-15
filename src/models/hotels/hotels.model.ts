@@ -18,3 +18,7 @@ export async function createNewHotel(hotel: IHotel): Promise<IHotel> {
 export async function updateHotel(id: string, hotel: IHotel): Promise<IHotel | null> {
   return Hotel.findByIdAndUpdate(id, hotel, { returnDocument: 'after' });
 }
+
+export async function deleteHotel(id: string): Promise<void | null> {
+  return Hotel.findByIdAndDelete(id);
+}

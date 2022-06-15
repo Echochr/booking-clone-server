@@ -5,6 +5,7 @@ import {
   httpGetHotelById,
   httpCreateNewHotel,
   httpUpdateHotel,
+  httpDeleteHotel,
 } from './hotels.controller';
 
 const hotelsRouter = express.Router();
@@ -16,5 +17,7 @@ hotelsRouter.get('/:id', httpGetHotelById);
 hotelsRouter.post('/', httpCreateNewHotel);
 // PUT
 hotelsRouter.put('/:id', httpUpdateHotel);
+// DELETE
+hotelsRouter.delete('/:id', httpDeleteHotel);
 
 export default hotelsRouter;
