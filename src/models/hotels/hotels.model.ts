@@ -5,6 +5,10 @@ export async function getAllHotels(): Promise<IHotel[]> {
   return Hotel.find();
 }
 
+export async function getHotelById(id: string): Promise<IHotel | null> {
+  return Hotel.findById(id);
+}
+
 export async function createNewHotel(hotel: IHotel): Promise<IHotel> {
   const newHotel = new Hotel(hotel);
   await newHotel.save();
