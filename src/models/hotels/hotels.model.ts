@@ -10,3 +10,7 @@ export async function createNewHotel(hotel: IHotel): Promise<IHotel> {
   await newHotel.save();
   return newHotel;
 }
+
+export async function updateHotel(id: string, hotel: IHotel): Promise<IHotel | null> {
+  return Hotel.findByIdAndUpdate(id, hotel, { returnDocument: 'after' });
+}
