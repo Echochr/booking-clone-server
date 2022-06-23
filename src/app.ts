@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import morgan from 'morgan';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import v1Router from './routes/v1';
 
@@ -11,6 +13,8 @@ const app = express();
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
 }
+app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 // Routes
