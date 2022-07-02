@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { httpGetRoomById, httpCreateNewRoom } from './rooms.controller';
+import { httpGetRoomById, httpCreateNewRoom, httpDeleteRoom } from './rooms.controller';
 
 const roomsRouter = express.Router();
 
@@ -8,5 +8,7 @@ const roomsRouter = express.Router();
 roomsRouter.get('/:roomId', httpGetRoomById);
 // POST
 roomsRouter.post('/:hotelId', httpCreateNewRoom);
+// DELETE
+roomsRouter.delete('/:hotelId/:roomId', httpDeleteRoom);
 
 export default roomsRouter;
