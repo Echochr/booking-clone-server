@@ -13,6 +13,11 @@ export async function getPropertyCountByCity(city: string) {
   return Hotel.countDocuments({ city });
 }
 
+export async function getPropertyCountByType(type: string) {
+  const count = await Hotel.countDocuments({ type });
+  return { type, count };
+}
+
 export async function createNewHotel(hotel: IHotel): Promise<IHotel> {
   const newHotel = new Hotel(hotel);
   await newHotel.save();

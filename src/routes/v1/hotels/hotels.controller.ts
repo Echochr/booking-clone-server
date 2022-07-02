@@ -8,6 +8,7 @@ import {
   updateHotel,
   deleteHotel,
   getPropertyCountByCity,
+  getPropertyCountByType,
 } from '../../../models/hotels/hotels.model';
 
 export async function httpGetAllHotels(_req: Request, res: Response, next: NextFunction) {
@@ -80,6 +81,22 @@ export async function httpGetPropertyCountByCity(req: Request, res: Response, ne
       citiesList.map((city) => getPropertyCountByCity(city)),
     );
     return res.status(200).json(propCountByCity);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function httpGetPropertyCountByType(req: Request, res: Response, next: NextFunction) {
+  const { types } = req.query;
+  try {
+    if (!types) {
+      return res.status(400).json({ message: 'No types provided' });
+    }
+    const typesList = (types as string).split(',');
+    const propCountByType = await Promise.all(
+      typesList.map((type) => getPropertyCountByType(type)),
+    );
+    return res.status(200).json(propCountByType);
   } catch (err) {
     return next(err);
   }

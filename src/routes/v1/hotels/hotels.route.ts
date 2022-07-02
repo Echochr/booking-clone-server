@@ -7,6 +7,7 @@ import {
   httpUpdateHotel,
   httpDeleteHotel,
   httpGetPropertyCountByCity,
+  httpGetPropertyCountByType,
 } from './hotels.controller';
 
 const hotelsRouter = express.Router();
@@ -15,6 +16,7 @@ const hotelsRouter = express.Router();
 hotelsRouter.get('/', httpGetAllHotels);
 hotelsRouter.get('/find/:id', httpGetHotelById);
 hotelsRouter.get('/countByCity', httpGetPropertyCountByCity);
+hotelsRouter.get('/countByType', httpGetPropertyCountByType);
 // POST
 hotelsRouter.post('/', httpCreateNewHotel);
 // PUT
