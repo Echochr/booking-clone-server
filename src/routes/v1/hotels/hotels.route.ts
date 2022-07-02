@@ -6,13 +6,15 @@ import {
   httpCreateNewHotel,
   httpUpdateHotel,
   httpDeleteHotel,
+  httpGetPropertyCountByCity,
 } from './hotels.controller';
 
 const hotelsRouter = express.Router();
 
 // GET
 hotelsRouter.get('/', httpGetAllHotels);
-hotelsRouter.get('/:id', httpGetHotelById);
+hotelsRouter.get('/find/:id', httpGetHotelById);
+hotelsRouter.get('/countByCity', httpGetPropertyCountByCity);
 // POST
 hotelsRouter.post('/', httpCreateNewHotel);
 // PUT

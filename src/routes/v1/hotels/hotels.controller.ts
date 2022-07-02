@@ -7,6 +7,7 @@ import {
   createNewHotel,
   updateHotel,
   deleteHotel,
+  getPropertyCountByCity,
 } from '../../../models/hotels/hotels.model';
 
 export async function httpGetAllHotels(_req: Request, res: Response, next: NextFunction) {
@@ -63,6 +64,22 @@ export async function httpDeleteHotel(req: Request, res: Response, next: NextFun
       return res.status(404).json({ message: 'Hotel ID not found' });
     }
     return res.status(204).json();
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function httpGetPropertyCountByCity(req: Request, res: Response, next: NextFunction) {
+  const { cities } = req.query;
+  try {
+    if (!cities) {
+      return res.status(400).json({ message: 'No cities provided' });
+    }
+    const citiesList = (cities as string).split(',');
+    const propCountByCity = await Promise.all(
+      citiesList.map((city) => getPropertyCountByCity(city)),
+    );
+    return res.status(200).json(propCountByCity);
   } catch (err) {
     return next(err);
   }
