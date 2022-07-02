@@ -17,6 +17,10 @@ export async function createNewRoom(room: IRoom, hotelId: string): Promise<IRoom
   return savedRoom;
 }
 
+export async function updateRoom(roomId: string, room: IRoom): Promise<IRoom | null> {
+  return Room.findByIdAndUpdate(roomId, room, { returnDocument: 'after' });
+}
+
 export async function deleteRoom(hotelId: string, roomId: string): Promise<IHotel | null> {
   const foundHotel = await getHotelById(hotelId);
   const foundRoom = await getRoomById(roomId);

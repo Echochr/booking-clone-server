@@ -1,6 +1,11 @@
 import express from 'express';
 
-import { httpGetRoomById, httpCreateNewRoom, httpDeleteRoom } from './rooms.controller';
+import {
+  httpGetRoomById,
+  httpCreateNewRoom,
+  httpUpdateRoom,
+  httpDeleteRoom,
+} from './rooms.controller';
 
 const roomsRouter = express.Router();
 
@@ -8,6 +13,8 @@ const roomsRouter = express.Router();
 roomsRouter.get('/:roomId', httpGetRoomById);
 // POST
 roomsRouter.post('/:hotelId', httpCreateNewRoom);
+// PUT
+roomsRouter.put('/:roomId', httpUpdateRoom);
 // DELETE
 roomsRouter.delete('/:hotelId/:roomId', httpDeleteRoom);
 
