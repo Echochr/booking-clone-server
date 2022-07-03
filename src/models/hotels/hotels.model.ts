@@ -2,15 +2,20 @@ import IHotel from './hotels.interface';
 import Hotel from './hotels.mongo';
 
 export async function getAllHotels(query: any): Promise<IHotel[]> {
-  return Hotel.find(query);
+  const {
+    featured, min, max, limit, sort, ...rest
+  } = query;
+  const castedQuery = { ...rest };
+
+  if (featured) Object.assign(castedQuery, { featured: featured === 'true' });
+  if (min) Object.assign(castedQuery, { cheapestPrice: { $gte: Number(min) || 1 } });
+  if (max) Object.assign(castedQuery, { cheapestPrice: { $lte: Number(max) || 999 } });
+
+  return Hotel.find(castedQuery).limit(Number(limit)).sort(sort);
 }
 
 export async function getHotelById(id: string): Promise<IHotel | null> {
   return Hotel.findById(id);
-}
-
-export async function getAllFeaturedHotels() {
-  return Hotel.find({ featured: true }).limit(4).sort('city');
 }
 
 export async function getPropertyCountByCity(city: string) {
