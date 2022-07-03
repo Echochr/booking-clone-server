@@ -10,7 +10,7 @@ export async function getHotelById(id: string): Promise<IHotel | null> {
 }
 
 export async function getAllFeaturedHotels() {
-  return Hotel.find({ featured: true }).sort('city');
+  return Hotel.find({ featured: true }).limit(4).sort('city');
 }
 
 export async function getPropertyCountByCity(city: string) {
