@@ -29,7 +29,7 @@ const HotelSchema = new mongoose.Schema<IHotel>({
     required: true,
   },
   distance: {
-    type: String,
+    type: Number,
     required: true,
   },
   rating: {

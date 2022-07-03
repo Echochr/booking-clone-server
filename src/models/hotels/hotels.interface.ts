@@ -4,7 +4,7 @@ export default interface IHotel {
   type: string;
   city: string;
   address: string;
-  distance: string;
+  distance: number;
   rating?: number;
   photos?: string[];
   rooms?: string[];
