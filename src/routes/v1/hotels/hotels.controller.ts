@@ -9,11 +9,12 @@ import {
   deleteHotel,
   getPropertyCountByCity,
   getPropertyCountByType,
+  getAllFeaturedHotels,
 } from '../../../models/hotels/hotels.model';
 
-export async function httpGetAllHotels(_req: Request, res: Response, next: NextFunction) {
+export async function httpGetAllHotels(req: Request, res: Response, next: NextFunction) {
   try {
-    const allHotels = await getAllHotels();
+    const allHotels = await getAllHotels(req.query);
     return res.status(200).json(allHotels);
   } catch (err) {
     return next(err);
@@ -28,6 +29,15 @@ export async function httpGetHotelById(req: Request, res: Response, next: NextFu
       return res.status(404).json({ message: 'Hotel ID not found' });
     }
     return res.status(200).json(hotel);
+  } catch (err) {
+    return next(err);
+  }
+}
+
+export async function httpGetAllFeaturedHotels(_req: Request, res: Response, next: NextFunction) {
+  try {
+    const allHotels = await getAllFeaturedHotels();
+    return res.status(200).json(allHotels);
   } catch (err) {
     return next(err);
   }

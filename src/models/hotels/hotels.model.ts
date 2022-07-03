@@ -1,12 +1,16 @@
 import IHotel from './hotels.interface';
 import Hotel from './hotels.mongo';
 
-export async function getAllHotels(): Promise<IHotel[]> {
-  return Hotel.find();
+export async function getAllHotels(query: any): Promise<IHotel[]> {
+  return Hotel.find(query);
 }
 
 export async function getHotelById(id: string): Promise<IHotel | null> {
   return Hotel.findById(id);
+}
+
+export async function getAllFeaturedHotels() {
+  return Hotel.find({ featured: true }).sort('city');
 }
 
 export async function getPropertyCountByCity(city: string) {
