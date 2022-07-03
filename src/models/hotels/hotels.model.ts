@@ -7,9 +7,15 @@ export async function getAllHotels(query: any): Promise<IHotel[]> {
   } = query;
   const castedQuery = { ...rest };
 
-  if (featured) Object.assign(castedQuery, { featured: featured === 'true' });
-  if (min) Object.assign(castedQuery, { cheapestPrice: { $gte: Number(min) || 1 } });
-  if (max) Object.assign(castedQuery, { cheapestPrice: { $lte: Number(max) || 999 } });
+  if (featured) {
+    Object.assign(castedQuery, { featured: featured === 'true' });
+  }
+  if (min || max) {
+    Object.assign(
+      castedQuery,
+      { cheapestPrice: { $gte: Number(min) || 1, $lte: Number(max) || 999 } },
+    );
+  }
 
   return Hotel.find(castedQuery).limit(Number(limit)).sort(sort);
 }
