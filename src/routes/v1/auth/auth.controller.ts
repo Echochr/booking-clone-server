@@ -20,7 +20,11 @@ export async function httpRegisterNewUser(req: Request, res: Response, next: Nex
   try {
     await registerNewUser(user);
     return res.status(201).json({ message: 'New user registered' });
-  } catch (err) {
+  } catch (err: any) {
+    // E11000 MongoDB Atlas error code for duplicate field
+    if (/^E11000/.test(err?.message)) {
+      return res.status(400).json({ message: 'Email already taken' });
+    }
     return next(err);
   }
 }
