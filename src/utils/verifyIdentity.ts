@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 
 dotenv.config();
 
-interface JTWPayload {
+interface JWTPayload {
   sub: string;
   isAdmin: boolean;
   iat: number;
@@ -12,7 +12,7 @@ interface JTWPayload {
 }
 
 export interface IUserAuthInfoRequest extends Request {
-  user?: JTWPayload
+  user?: JWTPayload
 }
 
 export function verifyToken(req: Request, res: Response, next: NextFunction) {
@@ -31,8 +31,9 @@ export function verifyToken(req: Request, res: Response, next: NextFunction) {
 }
 
 export function verifyAdmin(req: IUserAuthInfoRequest, res: Response, next: NextFunction) {
-  if (!req?.user?.isAdmin) {
-    res.status(403).json({ message: 'You are not authorized' });
-  }
-  next();
+  const token = req.cookies.access_token;
+  jwt.verify(token, process.env.JWT_SECRET as string, (_err: any, { isAdmin }: any) => {
+    if (isAdmin) return next();
+    return res.status(403).json({ message: 'You are not authorized' });
+  });
 }

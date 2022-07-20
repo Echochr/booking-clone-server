@@ -9,6 +9,7 @@ import {
   httpGetPropertyCountByCity,
   httpGetPropertyCountByType,
 } from './hotels.controller';
+import { verifyToken, verifyAdmin } from '../../../utils/verifyIdentity';
 
 const hotelsRouter = express.Router();
 
@@ -18,7 +19,7 @@ hotelsRouter.get('/find/:id', httpGetHotelById);
 hotelsRouter.get('/countByCity', httpGetPropertyCountByCity);
 hotelsRouter.get('/countByType', httpGetPropertyCountByType);
 // POST
-hotelsRouter.post('/', httpCreateNewHotel);
+hotelsRouter.post('/', verifyToken, verifyAdmin, httpCreateNewHotel);
 // PUT
 hotelsRouter.put('/:id', httpUpdateHotel);
 // DELETE
