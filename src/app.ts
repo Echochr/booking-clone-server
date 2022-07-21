@@ -16,7 +16,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 app.use(helmet());
 app.use(cors({
-  origin: ['http://localhost:3000', 'https://booking-clone-client.netlify.app'],
+  origin: process.env.NODE_ENV === 'production'
+    ? 'https://booking-clone-client.netlify.app'
+    : 'http://localhost:3000',
   credentials: true,
 }));
 app.use(cookieParser());
