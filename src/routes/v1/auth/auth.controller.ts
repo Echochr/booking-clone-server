@@ -52,8 +52,8 @@ export async function httpLoginUser(req: Request, res: Response, next: NextFunct
           .cookie('access_token', token, {
             maxAge: 60 * 60 * 1000, // 1 hour
             httpOnly: true,
-            // secure: process.env.NODE_ENV === 'production',
-            sameSite: 'none',
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: false,
           })
           .status(200).json({ id, isAdmin });
       }
