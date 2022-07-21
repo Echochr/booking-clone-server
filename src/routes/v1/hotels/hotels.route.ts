@@ -21,8 +21,8 @@ hotelsRouter.get('/countByType', httpGetPropertyCountByType);
 // POST
 hotelsRouter.post('/', verifyToken, verifyAdmin, httpCreateNewHotel);
 // PUT
-hotelsRouter.put('/:id', httpUpdateHotel);
+hotelsRouter.put('/:id', verifyToken, verifyAdmin, httpUpdateHotel);
 // DELETE
-hotelsRouter.delete('/:id', httpDeleteHotel);
+hotelsRouter.delete('/:id', verifyToken, verifyAdmin, httpDeleteHotel);
 
 export default hotelsRouter;
